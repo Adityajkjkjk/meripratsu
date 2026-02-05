@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Pratsu ❤️</title>
+
+<style>
+body{
+margin:0;
+background:#5a3a22;
+font-family:sans-serif;
+overflow-x:hidden;
+text-align:center;
+color:white;
+}
+
+#envelope{
+margin-top:100px;
+font-size:40px;
+background:#c49a6c;
+padding:25px 50px;
+border-radius:12px;
+display:inline-block;
+cursor:pointer;
+transition:.5s;
+}
+
+#envelope.open{
+transform:rotateX(180deg);
+opacity:0;
+}
+
+#letterBox{
+display:none;
+background:#fff3e6;
+color:#4a2c18;
+max-width:900px;
+margin:20px auto;
+padding:25px;
+border-radius:15px;
+line-height:1.6;
+}
+
+#typed{
+white-space:pre-wrap;
+}
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-900px);opacity:0}
+}
+
+#surprise{
+display:none;
+margin:25px auto;
+background:pink;
+color:#5a3a22;
+padding:12px;
+width:220px;
+border-radius:10px;
+cursor:pointer;
+}
+
+#photo{
+display:none;
+}
+
+#photo img{
+width:220px;
+border-radius:15px;
+}
+
+#proposal{
+display:none;
+margin-top:30px;
+font-size:28px;
+}
+
+.glow{
+animation:glow 1s infinite alternate;
+}
+
+@keyframes glow{
+from{text-shadow:0 0 5px gold}
+to{text-shadow:0 0 25px gold}
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+@media(max-width:600px){
+#letterBox{margin:10px}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div id="envelope" onclick="openLetter()">💌 OPEN ME</div>
+
+<!-- Dooron Dooron autoplay -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed?listType=search&list=dooron%20dooron&autoplay=1"
+allow="autoplay">
+</iframe>
+
+<div id="letterBox">
+<div id="typed"></div>
+</div>
+
+<div id="surprise" onclick="showPhoto()">CLICK HERE FOR A SURPRISE 🎁</div>
+
+<div id="photo">
+<img src="Pratsuu.jpeg">
+</div>
+
+<div id="proposal">
+I LOVE YOU FOREVER PRATSU ❤️<br><br>
+<span class="glow">WILL YOU MARRY ME 💍</span>
+</div>
+
+<script>
+const text=`My Dearest Meri Pratsu,
+
+I don’t even know where to begin because every time I think about you my heart gets so full that words start feeling too small.
+
+Meri Pratsu, you are the most beautiful blessing of my life. From the moment you walked into my world, everything changed.
+
+I love you more than I can ever properly explain. You healed parts of me I didn’t even know were broken.
+
+You are so precious to me. I adore everything about you.
+
+I am so proud of you. You are doing beautifully.
+
+Sometimes I get jealous of the air that touches you.
+
+You are my peace and my biggest happiness.
+
+I promise to love you gently on your soft days and strongly on your hard days.
+
+You are safe. You are cherished. You are deeply loved.
+
+Thank you for choosing me. Thank you for loving me.
+
+I love you endlessly.
+
+Forever yours,
+Your heart,
+Me 💕`;
+
+let i=0;
+
+function openLetter(){
+document.getElementById("envelope").classList.add("open");
+document.getElementById("letterBox").style.display="block";
+document.getElementById("surprise").style.display="block";
+type();
+startHearts();
+}
+
+function type(){
+if(i<text.length){
+document.getElementById("typed").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,30);
+}
+}
+
+function showPhoto(){
+document.getElementById("photo").style.display="block";
+document.getElementById("proposal").style.display="block";
+startConfetti();
+}
+
+/* hearts */
+function startHearts(){
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+10)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),6000);
+},300);
+}
+
+/* confetti */
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let conf=[];
+
+function startConfetti(){
+for(let i=0;i<200;i++){
+conf.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*6+2,
+dx:Math.random()*4-2,
+dy:Math.random()*4+2
+});
+}
+animate();
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+conf.forEach(c=>{
+ctx.beginPath();
+ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.fillStyle="pink";
+ctx.fill();
+c.x+=c.dx;
+c.y+=c.dy;
+});
+requestAnimationFrame(animate);
+}
+</script>
+
+</body>
+</html>
